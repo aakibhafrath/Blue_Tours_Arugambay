@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Guidelines | Blue Tours Arugambay</title>
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/animations.css">
+  
+  <style>
+    /* Reset & Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 80px; /* Header Space */
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4rem;
+      z-index: 1000;
+      box-shadow: var(--glass-shadow);
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    
+    .logo-container img {
+      height: 48px;
+    }
+    
+    .logo-container span {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .btn-back {
+      background: linear-gradient(135deg, var(--primary-blue), var(--deep-navy));
+      color: white;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color var(--transition-fast);
+    }
+    
+    .theme-toggle:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    /* Container & Layout */
+    .container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    .hero-guidelines {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    
+    .hero-guidelines h1 {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--turquoise), var(--golden-sunset));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero-guidelines p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+    
+    .guideline-section {
+      margin-bottom: 6rem;
+    }
+    
+    /* Swatch Grid */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 1.5rem;
+    }
+    
+    .swatch-card {
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast);
+    }
+    
+    .swatch-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .swatch-color {
+      height: 140px;
+      width: 100%;
+      position: relative;
+    }
+    
+    .swatch-details {
+      padding: 1.2rem;
+      position: relative;
+    }
+    
+    .swatch-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    
+    .swatch-hex {
+      font-family: monospace;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      padding: 4px;
+      border-radius: 4px;
+      transition: border-color var(--transition-fast), background-color var(--transition-fast);
+    }
+    
+    .swatch-hex:hover {
+      border-color: var(--glass-border);
+      background-color: var(--bg-tertiary);
+    }
+    
+    .swatch-hex::after {
+      content: 'COPY';
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--turquoise);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+    
+    .swatch-hex:hover::after {
+      opacity: 1;
+    }
+    
+    /* Typography Showcase */
+    .typo-showcase {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+    }
+    
+    .typo-row {
+      display: flex;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .typo-row:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    
+    .typo-label {
+      width: 25%;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .typo-content {
+      width: 75%;
+    }
+    
+    .font-sample-serif {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    
+    .font-sample-sans {
+      font-family: var(--font-body);
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    /* Logo Grid */
+    .logo-playground {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .playground-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .background-selector {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .bg-select-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all var(--transition-fast);
+    }
+    
+    .bg-select-btn.active {
+      background-color: var(--primary-blue);
+      color: white;
+      border-color: var(--primary-blue);
+    }
+    
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .logo-card {
+      background-color: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      padding: 2rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 280px;
+      position: relative;
+      transition: background-color var(--transition-fast);
+    }
+    
+    .logo-preview-box {
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      padding: 10px;
+    }
+    
+    .logo-preview-box svg, .logo-preview-box img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    
+    .logo-info {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .logo-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    
+    .logo-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: rgba(0, 119, 182, 0.15);
+      border: 1px solid var(--primary-blue);
+      color: var(--text-primary);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    
+    .logo-download-btn:hover {
+      background-color: var(--primary-blue);
+      color: white;
+    }
+    
+    /* 3D Business Card */
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    
+    .card-instructions {
+      padding: 1rem;
+    }
+    
+    .card-instructions h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .card-instructions ul {
+      list-style-position: inside;
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-instructions li {
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+    
+    .business-card-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+    
+    .interactive-card {
+      width: 450px;
+      height: 256px;
+      cursor: pointer;
+    }
+    
+    .flip-card-front, .flip-card-back {
+      border-radius: 12px;
+      background: linear-gradient(135deg, #023E8A 0%, #011638 100%);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+      box-sizing: border-box;
+      border: 2px solid #FDB813;
+    }
+    
+    .card-grid-front {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .card-grid-front svg {
+      width: 80%;
+      max-height: 80px;
+    }
+    
+    .card-grid-back {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      height: 100%;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .card-back-left svg {
+      width: 100%;
+      height: 90px;
+    }
+    
+    .card-back-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 2px solid rgba(253, 184, 19, 0.3);
+      padding-left: 20px;
+    }
+    
+    .card-name {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #FDB813;
+      margin-bottom: 2px;
+    }
+    
+    .card-role {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--turquoise);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    
+    .card-detail {
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #E2E8F0;
+    }
+    
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 0.65rem;
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 3px 8px;
+      border-radius: var(--radius-round);
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+    
+    /* Email Signature Template */
+    .signature-container {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+    }
+    
+    .sig-preview {
+      background-color: white;
+      border-radius: var(--radius-sm);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-color);
+      overflow-x: auto;
+    }
+    
+    .sig-controls {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .btn-sig {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+    }
+    
+    .btn-sig:hover {
+      background-color: var(--primary-blue);
+      color: white;
+    }
+    
+    .btn-copy-code {
+      background-color: var(--primary-blue);
+      color: white;
+      border-color: var(--primary-blue);
+    }
+    
+    .btn-copy-code:hover {
+      background-color: var(--deep-navy);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--emerald-green);
+      color: white;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      z-index: 1100;
+    }
+    
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    @media (max-width: 992px) {
+      .mockup-grid {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding: 0 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-guidelines h1 {
+        font-size: 2.5rem;
+      }
+      .interactive-card {
+        width: 340px;
+        height: 194px;
+      }
+      .flip-card-front, .flip-card-back {
+        padding: 1rem;
+      }
+      .card-name {
+        font-size: 1.1rem;
+      }
+      .card-role {
+        font-size: 0.65rem;
+        margin-bottom: 6px;
+      }
+      .card-detail {
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+      }
+      .card-back-left svg {
+        height: 60px;
+      }
+      .card-grid-back {
+        grid-template-columns: 70px 1fr;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">Successfully Copied!</div>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo-container">
+      <img src="LogoTransparent.png" alt="Blue Tours Logo Icon" style="width:56px;height:56px;object-fit:contain;">
+      <span>Blue Tours</span>
+    </a>
+    <div class="nav-links">
+      <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle Theme">
+        <!-- Sun Icon -->
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <!-- Moon Icon -->
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <a href="index.html" class="btn-back">Back to Site</a>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Hero Guidelines -->
+    <section class="hero-guidelines">
+      <h1>Brand Guidelines</h1>
+      <p>Official design framework and visual assets directory for Blue Tours Arugambay travel operations.</p>
+    </section>
+
+    <!-- Color Palette -->
+    <section class="guideline-section">
+      <h2 class="section-title">Color Palette</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Our primary color system is inspired by the ocean landscapes of Arugam Bay and the rich forests of Kumana. Click any swatch code to copy it.</p>
+      
+      <div class="color-grid">
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #023E8A;"></div>
+          <div class="swatch-details">
+            <div class="swatch-name">Deep Navy</div>
+            <div class="swatch-hex" data-color="#023E8A">#023E8A</div>
+          </div>
+        </div>
+        
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #0077B6;"></div>
+          <div class="swatch-details">
+            <div class="swatch-name">Ocean Blue</div>
+            <div class="swatch-hex" data-color="#0077B6">#0077B6</div>
+          </div>
+        </div>
+        
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #00B4D8;"></div>
+          <div class="swatch-details">
+            <div class="swatch-name">Turquoise</div>
+            <div class="swatch-hex" data-color="#00B4D8">#00B4D8</div>
+          </div>
+        </div>
+        
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #FDB813;"></div>
+          <div class="swatch-details">
+            <div class="swatch-name">Golden Sunset</div>
+            <div class="swatch-hex" data-color="#FDB813">#FDB813</div>
+          </div>
+        </div>
+        
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #2E8B57;"></div>
+          <div class="swatch-details">
+            <div class="swatch-name">Emerald Green</div>
+            <div class="swatch-hex" data-color="#2E8B57">#2E8B57</div>
+          </div>
+        </div>
+        
+        <div class="swatch-card">
+          <div class="swatch-color" style="background-color: #FFFFFF; border-bottom: 1px solid var(--glass-border);"></div>
+          <div class="swatch-details">
+            <div class="swatch-name">White</div>
+            <div class="swatch-hex" data-color="#FFFFFF">#FFFFFF</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section class="guideline-section">
+      <h2 class="section-title">Typography</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Luxury editorial styles mixed with high-performance modern geometric sans-serif fonts.</p>
+      
+      <div class="typo-showcase">
+        <div class="typo-row">
+          <div class="typo-label">Primary Heading</div>
+          <div class="typo-content">
+            <div class="font-sample-serif">Playfair Display</div>
+            <p style="color: var(--text-muted); margin-top: 5px;">Used for hero titles, section titles, package pricing numbers, and luxury storytelling markers.</p>
+          </div>
+        </div>
+        
+        <div class="typo-row">
+          <div class="typo-label">Body &amp; Accents</div>
+          <div class="typo-content">
+            <div class="font-sample-sans">Plus Jakarta Sans</div>
+            <p style="color: var(--text-muted); margin-top: 5px;">Used for descriptions, navigation headers, form elements, buttons, taglines, and metadata parameters.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logo Variations Playground -->
+    <section class="guideline-section">
+      <h2 class="section-title">Logo Playground</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Toggle background styles to preview and download each official vector configuration.</p>
+      
+      <div class="logo-playground">
+        <div class="playground-header">
+          <h3 style="font-family: var(--font-heading); font-size: 1.3rem;">Visual Layout Panel</h3>
+          <div class="background-selector">
+            <button class="bg-select-btn active" data-bg="dark">Dark Background</button>
+            <button class="bg-select-btn" data-bg="light">Light Background</button>
+            <button class="bg-select-btn" data-bg="grid">Transparent Checker</button>
+          </div>
+        </div>
+        
+        <div class="logo-grid" id="brandLogoGrid">
+          <!-- Logo 1: Full Color -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="Full Color Logo" class="logo-img-asset">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">Full Color Logo</div>
+              <a href="assets/logos/logo-full.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 2: Dark Version -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="Dark Version Logo" class="logo-img-asset">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">Dark Version</div>
+              <a href="assets/logos/logo-dark.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 3: White Version -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="White Version Logo" class="logo-img-asset" style="">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">White Version</div>
+              <a href="assets/logos/logo-white.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 4: Icon Only -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="Icon Only Logo" class="logo-img-asset" style="border-radius:50%;object-fit:contain;">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">Icon Only</div>
+              <a href="assets/logos/logo-icon.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 5: Horizontal Layout -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="Horizontal Logo" class="logo-img-asset">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">Horizontal Logo</div>
+              <a href="assets/logos/logo-horizontal.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 6: Vertical Layout -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="Vertical Logo" class="logo-img-asset">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">Vertical Logo</div>
+              <a href="assets/logos/logo-vertical.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 7: Favicon -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="Favicon Logo" class="logo-img-asset" style="width: 32px; height: 32px;object-fit:contain;">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">Favicon (32x32)</div>
+              <a href="assets/logos/logo-favicon.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 8: App Icon -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="App Icon Logo" class="logo-img-asset" style="width: 100px; height: 100px; border-radius: 20px;object-fit:contain;">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">App Icon</div>
+              <a href="assets/logos/logo-app-icon.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+
+          <!-- Logo 9: Social Profile -->
+          <div class="logo-card">
+            <div class="logo-preview-box">
+              <img src="LogoTransparent.png" alt="Social Media Logo" class="logo-img-asset" style="width: 100px; height: 100px; border-radius: 50%;object-fit:contain;">
+            </div>
+            <div class="logo-info">
+              <div class="logo-title">Social Media Profile</div>
+              <a href="assets/logos/logo-social.svg" download class="logo-download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                SVG Vector
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D Business Card Mockup -->
+    <section class="guideline-section">
+      <h2 class="section-title">Business Card Mockup</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Interactive 3D business card showing digital and print specifications. Click the card to flip between Front and Back.</p>
+      
+      <div class="mockup-grid">
+        <div class="business-card-wrapper">
+          <div class="interactive-card flip-card" id="businessCard">
+            <div class="flip-card-inner">
+              <!-- Front of Card -->
+              <div class="flip-card-front">
+                <span class="card-badge">Front</span>
+                <div class="card-grid-front">
+                  <!-- White Horizontal Logo -->
+                  <img src="LogoTransparent.png" alt="Blue Tours White Logo" style="width: 100%; max-height: 80px;object-fit:contain;">
+                </div>
+              </div>
+              <!-- Back of Card -->
+              <div class="flip-card-back">
+                <span class="card-badge" style="background-color: var(--golden-sunset); color: #023E8A;">Back</span>
+                <div class="card-grid-back">
+                  <div class="card-back-left">
+                    <img src="LogoTransparent.png" alt="Blue Tours Logo Icon" style="width: 100%; height: 90px;object-fit:contain;">
+                  </div>
+                  <div class="card-back-right">
+                    <div class="card-name">A.R. Basheer</div>
+                    <div class="card-role">Local Expert &amp; Guide</div>
+                    <div class="card-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FDB813" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                      0776 130 013 / 0755 153 878
+                    </div>
+                    <div class="card-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FDB813" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      arbasheer82@gmail.com
+                    </div>
+                    <div class="card-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FDB813" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      Arugam Bay, Sri Lanka
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-instructions">
+          <h3>Specifications</h3>
+          <ul>
+            <li><strong>Standard Size:</strong> 3.5" x 2.0" (88.9mm x 50.8mm)</li>
+            <li><strong>Paper Weight:</strong> 350gsm Silk Premium Coated Cardboard</li>
+            <li><strong>Finishing Elements:</strong> Gold foil stamping on card borders and back name text, matte lamination, spot UV on logo waves.</li>
+          </ul>
+          <p style="color: var(--text-secondary);">This interactive mockup utilizes absolute CSS 3D perspectives to simulate front-foil embossing and custom matte coating values. Rotate to check coordinates and details.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Email Signature -->
+    <section class="guideline-section">
+      <h2 class="section-title">Email Signature Generator</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">A copy-pasteable luxury HTML email signature ready to load in your mail clients (Outlook, Apple Mail, Gmail, etc.)</p>
+      
+      <div class="signature-container">
+        <!-- Live Signature HTML Preview -->
+        <div class="sig-preview" id="signatureHtmlPreview">
+          <table cellpadding="0" cellspacing="0" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; border-collapse: collapse; color: #334155; line-height: 1.5; width: 500px;">
+            <tr>
+              <!-- Logo column -->
+              <td style="padding-right: 20px; vertical-align: middle; width: 140px; text-align: center;">
+                <img src="https://arbasheer82.github.io/blue-tours-assets/logo-icon.png" alt="Blue Tours Icon" width="110" style="border:0; outline:none; display:block; margin: 0 auto;" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=120&auto=format&fit=crop&q=60'">
+              </td>
+              <!-- Divider line -->
+              <td style="border-left: 2px solid #00B4D8; width: 2px; padding: 0;"></td>
+              <!-- Details column -->
+              <td style="padding-left: 20px; vertical-align: middle;">
+                <div style="font-weight: 700; font-size: 18px; color: #023E8A; margin-bottom: 2px;">A.R. Basheer</div>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #0077B6; font-weight: 700; margin-bottom: 12px;">Director &amp; Local Expert</div>
+                
+                <div style="font-size: 12px; margin-bottom: 4px; color: #475569;">
+                  <strong>WhatsApp/Call:</strong> <a href="tel:+94776130013" style="color: #0077B6; text-decoration: none;">+94 (0) 776 130 013</a>
+                </div>
+                <div style="font-size: 12px; margin-bottom: 4px; color: #475569;">
+                  <strong>Email:</strong> <a href="mailto:arbasheer82@gmail.com" style="color: #0077B6; text-decoration: none;">arbasheer82@gmail.com</a>
+                </div>
+                <div style="font-size: 12px; margin-bottom: 8px; color: #475569;">
+                  <strong>Web:</strong> <a href="https://arbasheer82.github.io/blue-tours" style="color: #0077B6; text-decoration: none;">www.bluetoursarugambay.com</a>
+                </div>
+                
+                <div style="font-size: 10px; color: #64748B; font-style: italic;">
+                  Kumana Safaris • Lagoon Tours • Surf Lessons • Luxury AC Vehicles
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="sig-controls">
+          <button class="btn-sig btn-copy-code" id="btnCopySignatureHtml">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Signature (Visual)
+          </button>
+          <button class="btn-sig" id="btnCopySignatureCode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            Copy HTML Code
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Interactive JavaScript Logic -->
+  <script src="js/logo-processor.js"></script>
+  <script>
+    // Theme Toggle Handler
+    const htmlEl = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    
+    // Check saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    updateThemeIcons(savedTheme);
+    
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcons(newTheme);
+    });
+    
+    function updateThemeIcons(theme) {
+      if (theme === 'dark') {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    }
+
+    // Color Swatch Copying
+    document.querySelectorAll('.swatch-hex').forEach(item => {
+      item.addEventListener('click', () => {
+        const color = item.getAttribute('data-color');
+        navigator.clipboard.writeText(color).then(() => {
+          showToast(`Copied Hex: ${color}`);
+        });
+      });
+    });
+
+    // Logo Playground Background Selector
+    const brandLogoGrid = document.getElementById('brandLogoGrid');
+    document.querySelectorAll('.bg-select-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.bg-select-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const bgType = btn.getAttribute('data-bg');
+        
+        // Remove existing bg classes
+        brandLogoGrid.querySelectorAll('.logo-card').forEach(card => {
+          // Reset styling
+          card.style.backgroundImage = 'none';
+          if (bgType === 'dark') {
+            card.style.backgroundColor = 'var(--bg-tertiary)';
+          } else if (bgType === 'light') {
+            card.style.backgroundColor = '#FFFFFF';
+          } else if (bgType === 'grid') {
+            card.style.backgroundColor = '#E2E8F0';
+            card.style.backgroundImage = 'linear-gradient(45deg, #cbd5e1 25%, transparent 25%), linear-gradient(-45deg, #cbd5e1 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #cbd5e1 75%), linear-gradient(-45deg, transparent 75%, #cbd5e1 75%)';
+            card.style.backgroundSize = '20px 20px';
+            card.style.backgroundPosition = '0 0, 0 10px, 10px -10px, -10px 0px';
+          }
+        });
+      });
+    });
+
+    // 3D Business Card Click Flip
+    const businessCard = document.getElementById('businessCard');
+    businessCard.addEventListener('click', () => {
+      businessCard.classList.toggle('flipped');
+    });
+
+    // Toast Notification helper
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Email Signature Copy Handlers
+    const btnCopySignatureHtml = document.getElementById('btnCopySignatureHtml');
+    const btnCopySignatureCode = document.getElementById('btnCopySignatureCode');
+    const signatureHtmlPreview = document.getElementById('signatureHtmlPreview');
+
+    btnCopySignatureHtml.addEventListener('click', () => {
+      // Copy visual rich text
+      const range = document.createRange();
+      range.selectNode(signatureHtmlPreview);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      try {
+        document.execCommand('copy');
+        showToast('Visual Email Signature Copied! Paste directly in your email settings.');
+      } catch (err) {
+        showToast('Failed to copy. Please select manually.');
+      }
+      window.getSelection().removeAllRanges();
+    });
+
+    btnCopySignatureCode.addEventListener('click', () => {
+      // Copy HTML string
+      const htmlText = signatureHtmlPreview.innerHTML.trim();
+      navigator.clipboard.writeText(htmlText).then(() => {
+        showToast('HTML Signature Code Copied! Paste in your HTML editor.');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "blue-tours-arugambay",
+  "version": "1.0.0",
+  "description": "Premium tourism website for Blue Tours Arugambay",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y http-server -p 3000"
+  },
+  "keywords": [
+    "travel",
+    "safari",
+    "sri-lanka",
+    "arugam-bay"
+  ],
+  "author": "Blue Tours",
+  "license": "ISC"
+}

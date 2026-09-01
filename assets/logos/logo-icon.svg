@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%" id="blue-tours-logo-icon">
+  <defs>
+    <!-- Brand Color Gradients -->
+    <linearGradient id="sky-sunset" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FDB813" stop-opacity="0.6"/>
+    </linearGradient>
+    
+    <linearGradient id="sun-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FDB813"/>
+    </linearGradient>
+
+    <linearGradient id="mountain-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#023E8A"/>
+      <stop offset="100%" stop-color="#0077B6"/>
+    </linearGradient>
+
+    <linearGradient id="wave-back-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0077B6"/>
+      <stop offset="100%" stop-color="#00B4D8"/>
+    </linearGradient>
+
+    <linearGradient id="wave-front-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00B4D8"/>
+      <stop offset="100%" stop-color="#90E0EF"/>
+    </linearGradient>
+
+    <linearGradient id="palm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3CB371"/>
+      <stop offset="100%" stop-color="#2E8B57"/>
+    </linearGradient>
+    
+    <linearGradient id="surfboard-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FDB813"/>
+    </linearGradient>
+
+    <!-- Filters for Luxury Drop Shadows -->
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#023E8A" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- 1. Outer Compass Ring (Luxury Gold & Navy Borders) -->
+  <circle cx="250" cy="250" r="230" fill="none" stroke="#023E8A" stroke-width="2" opacity="0.2" />
+  <circle cx="250" cy="250" r="220" fill="none" stroke="#FDB813" stroke-width="4" filter="url(#soft-shadow)" />
+  
+  <!-- Compass Cardinal Ticks -->
+  <!-- North -->
+  <polygon points="250,15 254,30 246,30" fill="#023E8A" />
+  <text x="250" y="44" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="900" fill="#023E8A" text-anchor="middle">N</text>
+  <!-- South -->
+  <polygon points="250,485 254,470 246,470" fill="#023E8A" />
+  <text x="250" y="464" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="900" fill="#023E8A" text-anchor="middle">S</text>
+  <!-- East -->
+  <polygon points="485,250 470,254 470,246" fill="#023E8A" />
+  <text x="458" y="255" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="900" fill="#023E8A" text-anchor="middle">E</text>
+  <!-- West -->
+  <polygon points="15,250 30,254 30,246" fill="#023E8A" />
+  <text x="42" y="255" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="900" fill="#023E8A" text-anchor="middle">W</text>
+
+  <!-- Inner Content Circle Clip -->
+  <g id="emblem-content">
+    <clipPath id="inner-circle-clip">
+      <circle cx="250" cy="250" r="216" />
+    </clipPath>
+    <g clip-path="url(#inner-circle-clip)">
+      <!-- Sky Background with Golden Sunset Glow -->
+      <rect x="30" y="30" width="440" height="440" fill="url(#sky-sunset)" />
+      
+      <!-- 2. Rising Sun -->
+      <circle cx="250" cy="230" r="75" fill="url(#sun-grad)" filter="url(#soft-shadow)" />
+      
+      <!-- 3. Minimalist Mountain Outline -->
+      <!-- Left Peak -->
+      <polygon points="100,340 210,180 300,340" fill="url(#mountain-grad)" opacity="0.9" />
+      <!-- Right Peak -->
+      <polygon points="200,340 310,150 420,340" fill="url(#mountain-grad)" />
+      <!-- Mountain Snow Caps / Highlights -->
+      <polygon points="210,180 195,202 225,202" fill="#FFFFFF" opacity="0.6" />
+      <polygon points="310,150 292,176 328,176" fill="#FFFFFF" opacity="0.7" />
+
+      <!-- 4. Safari Jeep Silhouette -->
+      <!-- Positioned on mountain base/ledge -->
+      <g transform="translate(290, 275) scale(0.65)" fill="#023E8A">
+        <!-- Jeep Body -->
+        <path d="M10,40 L65,40 L65,30 L55,27 L50,15 L22,15 L20,30 L10,32 Z" />
+        <!-- Windshield Frame -->
+        <path d="M24,14 L38,2 L40,2 L26,14 Z" fill="#FDB813" />
+        <!-- Roof Rack / Roll Cage -->
+        <path d="M25,14 L52,14 L55,27 L53,28 L50,16 L24,16 Z" />
+        <!-- Wheels -->
+        <circle cx="22" cy="40" r="9" fill="#023E8A" stroke="#FFFFFF" stroke-width="2" />
+        <circle cx="53" cy="40" r="9" fill="#023E8A" stroke="#FFFFFF" stroke-width="2" />
+        <circle cx="22" cy="40" r="3" fill="#FFFFFF" />
+        <circle cx="53" cy="40" r="3" fill="#FFFFFF" />
+      </g>
+
+      <!-- 5. Travel Path / Loop (Dotted Line wrapping around elements) -->
+      <path d="M 345,300 C 440,240 380,100 250,90 C 130,80 70,220 160,330" 
+            fill="none" stroke="#FDB813" stroke-width="3" stroke-dasharray="6,6" opacity="0.8" />
+      <!-- Travel Path Arrow/Star -->
+      <polygon points="163,334 162,323 152,328" fill="#FDB813" />
+
+      <!-- 6. Ocean Waves (Foreground Overlay) -->
+      <!-- Back Ocean Wave -->
+      <path d="M 30,340 C 100,320 180,410 270,330 C 350,260 410,350 470,310 L 470,470 L 30,470 Z" 
+            fill="url(#wave-back-grad)" opacity="0.85" />
+      
+      <!-- Front Ocean Wave -->
+      <path d="M 30,370 C 110,390 190,320 270,380 C 350,440 410,360 470,390 L 470,470 L 30,470 Z" 
+            fill="url(#wave-front-grad)" />
+      
+      <!-- Wave Foam Accents (White Bezier highlights) -->
+      <path d="M 30,370 C 110,390 190,320 270,380" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.5" />
+      <path d="M 270,330 C 350,260 410,350 470,310" fill="none" stroke="#90E0EF" stroke-width="2" opacity="0.7" />
+
+      <!-- 7. Surfboard Slicing Wave -->
+      <g transform="translate(180, 325) rotate(-28)">
+        <!-- Surfboard Outer Shape -->
+        <path d="M-8,-45 C-8,-45 0,-70 8,-70 C8,-70 16,-45 16,10 C16,35 12,45 8,45 C4,45 0,35 0,10 Z" 
+              fill="url(#surfboard-grad)" filter="url(#soft-shadow)" />
+        <!-- Surfboard Center Stripe (Deep Navy) -->
+        <path d="M7,-70 L9,-70 L9,45 L7,45 Z" fill="#023E8A" />
+        <!-- Surfboard Accent Fin / Graphic -->
+        <path d="M2,-20 L14,5 L14,15 L2,-10 Z" fill="#0077B6" opacity="0.7" />
+      </g>
+
+      <!-- 8. Curved Palm Tree & Tropical Leaves (Left Foreground Frame) -->
+      <g id="palm-tree">
+        <!-- Curved Trunk -->
+        <path d="M 45,470 Q 75,340 120,240 Q 124,241 80,342 Q 50,471 45,470 Z" fill="#023E8A" />
+        
+        <!-- Palm Leaves / Fronds curving outward -->
+        <!-- Leaf 1 (Top Left) -->
+        <path d="M 120,240 Q 70,220 30,240 C 60,255 100,250 120,240 Z" fill="url(#palm-grad)" />
+        <!-- Leaf 2 (Top Middle) -->
+        <path d="M 120,240 Q 100,170 85,130 C 105,160 120,200 120,240 Z" fill="url(#palm-grad)" />
+        <!-- Leaf 3 (Top Right) -->
+        <path d="M 120,240 Q 150,170 180,150 C 160,190 140,220 120,240 Z" fill="url(#palm-grad)" />
+        <!-- Leaf 4 (Right-Curve) -->
+        <path d="M 120,240 Q 180,230 215,245 C 180,260 150,255 120,240 Z" fill="url(#palm-grad)" />
+        <!-- Leaf 5 (Bottom Left-Curve) -->
+        <path d="M 120,240 Q 75,280 45,310 C 65,290 100,270 120,240 Z" fill="url(#palm-grad)" />
+        
+        <!-- Tropical Fern Leaves at Trunk Base -->
+        <path d="M35,460 C20,440 15,410 10,390 C25,410 30,430 35,460 Z" fill="#2E8B57" opacity="0.8" />
+        <path d="M55,470 C65,450 70,420 75,400 C65,420 60,440 55,470 Z" fill="#2E8B57" opacity="0.8" />
+      </g>
+
+    </g>
+  </g>
+</svg>
