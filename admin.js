@@ -12,7 +12,8 @@
     searchQuery: '',
     currentEditId: null,
     selectedFile: null,
-    isUploading: false
+    isUploading: false,
+    listenersAttached: false
   };
 
   // DOM Elements
@@ -25,6 +26,9 @@
     
     // Login Form
     adminLoginForm: document.getElementById('adminLoginForm'),
+    loginKeyGroup: document.getElementById('loginKeyGroup'),
+    loginPublishableKey: document.getElementById('loginPublishableKey'),
+    btnToggleKeyInline: document.getElementById('btnToggleKeyInline'),
     loginEmail: document.getElementById('loginEmail'),
     loginPassword: document.getElementById('loginPassword'),
     btnLoginSubmit: document.getElementById('btnLoginSubmit'),
@@ -90,7 +94,11 @@
   // 1. INITIALIZATION & AUTH STATE
   // =========================================================================
   async function init() {
-    setupEventListeners();
+    if (!state.listenersAttached) {
+      setupEventListeners();
+      state.listenersAttached = true;
+    }
+
     checkConfigStatus();
 
     const client = window.BlueToursSupabase ? window.BlueToursSupabase.getClient() : null;
@@ -117,20 +125,22 @@
   function checkConfigStatus() {
     const isConfigured = window.BlueToursSupabase && window.BlueToursSupabase.isConfigured();
     if (!isConfigured) {
-      el.configNoticeAlert.classList.add('show');
+      if (el.configNoticeAlert) el.configNoticeAlert.classList.add('show');
+      if (el.loginKeyGroup) el.loginKeyGroup.style.display = 'flex';
     } else {
-      el.configNoticeAlert.classList.remove('show');
+      if (el.configNoticeAlert) el.configNoticeAlert.classList.remove('show');
+      if (el.loginKeyGroup) el.loginKeyGroup.style.display = 'none';
     }
   }
 
   function showLoginView() {
-    el.loginSection.style.display = 'flex';
-    el.dashboardSection.style.display = 'none';
+    if (el.loginSection) el.loginSection.style.display = 'flex';
+    if (el.dashboardSection) el.dashboardSection.style.display = 'none';
   }
 
   function showDashboardView() {
-    el.loginSection.style.display = 'none';
-    el.dashboardSection.style.display = 'flex';
+    if (el.loginSection) el.loginSection.style.display = 'none';
+    if (el.dashboardSection) el.dashboardSection.style.display = 'flex';
   }
 
   // =========================================================================
@@ -140,13 +150,26 @@
     e.preventDefault();
     hideAlert();
 
+    // Check if user entered key in inline input field
+    if (el.loginPublishableKey && el.loginPublishableKey.value.trim()) {
+      const keyVal = el.loginPublishableKey.value.trim();
+      const currentUrl = window.BlueToursSupabase.getUrl() || 'https://lhcdnllntqcnzlrusmsm.supabase.co';
+      window.BlueToursSupabase.setCredentials(currentUrl, keyVal);
+      checkConfigStatus();
+    }
+
     const email = el.loginEmail.value.trim();
     const password = el.loginPassword.value;
 
     const client = window.BlueToursSupabase ? window.BlueToursSupabase.getClient() : null;
     if (!client) {
-      showAlert('Please enter your Supabase Publishable Key first.');
-      openSettingsModal();
+      showAlert('Please enter your Supabase Publishable / Anon Key first.');
+      if (el.loginKeyGroup) {
+        el.loginKeyGroup.style.display = 'flex';
+        el.loginPublishableKey.focus();
+      } else {
+        openSettingsModal();
+      }
       return;
     }
 
@@ -189,18 +212,18 @@
   }
 
   function setLoginLoading(isLoading) {
-    el.btnLoginSubmit.disabled = isLoading;
-    el.btnLoginText.style.display = isLoading ? 'none' : 'inline';
-    el.btnLoginSpinner.style.display = isLoading ? 'inline' : 'none';
+    if (el.btnLoginSubmit) el.btnLoginSubmit.disabled = isLoading;
+    if (el.btnLoginText) el.btnLoginText.style.display = isLoading ? 'none' : 'inline';
+    if (el.btnLoginSpinner) el.btnLoginSpinner.style.display = isLoading ? 'inline' : 'none';
   }
 
   function showAlert(msg) {
-    el.loginAlertText.textContent = msg;
-    el.loginAlert.classList.add('show');
+    if (el.loginAlertText) el.loginAlertText.textContent = msg;
+    if (el.loginAlert) el.loginAlert.classList.add('show');
   }
 
   function hideAlert() {
-    el.loginAlert.classList.remove('show');
+    if (el.loginAlert) el.loginAlert.classList.remove('show');
   }
 
   // =========================================================================
@@ -210,11 +233,13 @@
     const client = window.BlueToursSupabase ? window.BlueToursSupabase.getClient() : null;
     if (!client) return;
 
-    el.adminGalleryGrid.innerHTML = `
-      <div style="grid-column: 1/-1; text-align:center; padding:2.5rem;">
-        <div style="font-size:1.1rem; color:var(--turquoise,#00B4D8);">Loading gallery...</div>
-      </div>
-    `;
+    if (el.adminGalleryGrid) {
+      el.adminGalleryGrid.innerHTML = `
+        <div style="grid-column: 1/-1; text-align:center; padding:2.5rem;">
+          <div style="font-size:1.1rem; color:var(--turquoise,#00B4D8);">Loading gallery...</div>
+        </div>
+      `;
+    }
 
     try {
       const { data, error } = await client
@@ -230,27 +255,30 @@
     } catch (err) {
       console.error('Error fetching gallery items:', err);
       showToast('Error loading gallery: ' + err.message, 'error');
-      el.adminGalleryGrid.innerHTML = `
-        <div class="admin-empty-state">
-          <div class="empty-icon">⚠️</div>
-          <div class="empty-title">Failed to load gallery</div>
-          <div class="empty-subtitle">${err.message}</div>
-          <button id="btnRetryLoad" class="btn-admin-primary" style="width:auto;">Retry</button>
-        </div>
-      `;
-      document.getElementById('btnRetryLoad')?.addEventListener('click', loadGalleryItems);
+      if (el.adminGalleryGrid) {
+        el.adminGalleryGrid.innerHTML = `
+          <div class="admin-empty-state">
+            <div class="empty-icon">⚠️</div>
+            <div class="empty-title">Failed to load gallery</div>
+            <div class="empty-subtitle">${escapeHtml(err.message)}</div>
+            <button id="btnRetryLoad" class="btn-admin-primary" style="width:auto;">Retry</button>
+          </div>
+        `;
+        document.getElementById('btnRetryLoad')?.addEventListener('click', loadGalleryItems);
+      }
     }
   }
 
   function updateMetrics() {
     const photos = state.items.filter(i => i.media_type === 'image').length;
     const videos = state.items.filter(i => i.media_type === 'video').length;
-    el.statTotalPhotos.textContent = photos;
-    el.statTotalVideos.textContent = videos;
-    el.statTotalMedia.textContent = state.items.length;
+    if (el.statTotalPhotos) el.statTotalPhotos.textContent = photos;
+    if (el.statTotalVideos) el.statTotalVideos.textContent = videos;
+    if (el.statTotalMedia) el.statTotalMedia.textContent = state.items.length;
   }
 
   function renderGalleryGrid() {
+    if (!el.adminGalleryGrid) return;
     let filtered = state.items;
 
     // Filter by type
@@ -331,27 +359,29 @@
     state.currentEditId = null;
     state.selectedFile = null;
 
-    el.formItemId.value = '';
-    el.formMediaType.value = type;
-    el.formTitle.value = '';
-    el.formCategory.value = 'safari';
-    el.formDescription.value = '';
+    if (el.formItemId) el.formItemId.value = '';
+    if (el.formMediaType) el.formMediaType.value = type;
+    if (el.formTitle) el.formTitle.value = '';
+    if (el.formCategory) el.formCategory.value = 'safari';
+    if (el.formDescription) el.formDescription.value = '';
 
-    el.modalTitle.textContent = type === 'video' ? 'Upload New Video' : 'Upload New Photo';
-    el.btnSaveText.textContent = type === 'video' ? 'Upload Video' : 'Upload Photo';
+    if (el.modalTitle) el.modalTitle.textContent = type === 'video' ? 'Upload New Video' : 'Upload New Photo';
+    if (el.btnSaveText) el.btnSaveText.textContent = type === 'video' ? 'Upload Video' : 'Upload Photo';
 
-    el.formFileInput.value = '';
-    el.formFileInput.accept = type === 'video' ? 'video/mp4,video/webm,video/quicktime' : 'image/*';
-    el.dropzoneIcon.textContent = type === 'video' ? '🎥' : '📸';
-    el.dropzoneText.textContent = type === 'video' ? 'Tap to select video from phone' : 'Tap to select photo from phone';
-    el.dropzoneHint.textContent = type === 'video' ? 'Supports MP4, WebM (Max 50MB)' : 'Supports JPG, PNG, WEBP (Max 15MB)';
+    if (el.formFileInput) {
+      el.formFileInput.value = '';
+      el.formFileInput.accept = type === 'video' ? 'video/mp4,video/webm,video/quicktime' : 'image/*';
+    }
+    if (el.dropzoneIcon) el.dropzoneIcon.textContent = type === 'video' ? '🎥' : '📸';
+    if (el.dropzoneText) el.dropzoneText.textContent = type === 'video' ? 'Tap to select video from phone' : 'Tap to select photo from phone';
+    if (el.dropzoneHint) el.dropzoneHint.textContent = type === 'video' ? 'Supports MP4, WebM (Max 50MB)' : 'Supports JPG, PNG, WEBP (Max 15MB)';
 
     hidePreview();
-    el.fileDropzone.style.display = 'block';
-    el.uploadProgressBar.style.display = 'none';
-    el.uploadProgressFill.style.width = '0%';
+    if (el.fileDropzone) el.fileDropzone.style.display = 'block';
+    if (el.uploadProgressBar) el.uploadProgressBar.style.display = 'none';
+    if (el.uploadProgressFill) el.uploadProgressFill.style.width = '0%';
 
-    el.mediaModal.classList.add('active');
+    if (el.mediaModal) el.mediaModal.classList.add('active');
   }
 
   function openEditModal(itemId) {
@@ -361,25 +391,24 @@
     state.currentEditId = itemId;
     state.selectedFile = null;
 
-    el.formItemId.value = item.id;
-    el.formMediaType.value = item.media_type;
-    el.formTitle.value = item.title;
-    el.formCategory.value = item.category;
-    el.formDescription.value = item.description || '';
+    if (el.formItemId) el.formItemId.value = item.id;
+    if (el.formMediaType) el.formMediaType.value = item.media_type;
+    if (el.formTitle) el.formTitle.value = item.title;
+    if (el.formCategory) el.formCategory.value = item.category;
+    if (el.formDescription) el.formDescription.value = item.description || '';
 
-    el.modalTitle.textContent = `Edit ${item.media_type === 'video' ? 'Video' : 'Photo'}`;
-    el.btnSaveText.textContent = 'Save Changes';
+    if (el.modalTitle) el.modalTitle.textContent = `Edit ${item.media_type === 'video' ? 'Video' : 'Photo'}`;
+    if (el.btnSaveText) el.btnSaveText.textContent = 'Save Changes';
 
-    // Show existing preview
     showPreview(item.media_url, item.media_type);
-    el.dropzoneText.textContent = 'Tap to replace media file (optional)';
+    if (el.dropzoneText) el.dropzoneText.textContent = 'Tap to replace media file (optional)';
 
-    el.uploadProgressBar.style.display = 'none';
-    el.mediaModal.classList.add('active');
+    if (el.uploadProgressBar) el.uploadProgressBar.style.display = 'none';
+    if (el.mediaModal) el.mediaModal.classList.add('active');
   }
 
   function closeModal() {
-    el.mediaModal.classList.remove('active');
+    if (el.mediaModal) el.mediaModal.classList.remove('active');
     state.selectedFile = null;
     state.currentEditId = null;
   }
@@ -397,7 +426,6 @@
 
     state.selectedFile = file;
 
-    // Auto-fill title if empty
     if (!el.formTitle.value.trim()) {
       const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
       el.formTitle.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
@@ -408,22 +436,26 @@
   }
 
   function showPreview(url, type) {
-    el.previewContainer.style.display = 'block';
+    if (el.previewContainer) el.previewContainer.style.display = 'block';
     if (type === 'video') {
-      el.imagePreview.style.display = 'none';
-      el.videoPreview.style.display = 'block';
-      el.videoPreview.src = url;
+      if (el.imagePreview) el.imagePreview.style.display = 'none';
+      if (el.videoPreview) {
+        el.videoPreview.style.display = 'block';
+        el.videoPreview.src = url;
+      }
     } else {
-      el.videoPreview.style.display = 'none';
-      el.imagePreview.style.display = 'block';
-      el.imagePreview.src = url;
+      if (el.videoPreview) el.videoPreview.style.display = 'none';
+      if (el.imagePreview) {
+        el.imagePreview.style.display = 'block';
+        el.imagePreview.src = url;
+      }
     }
   }
 
   function hidePreview() {
-    el.previewContainer.style.display = 'none';
-    el.imagePreview.src = '';
-    el.videoPreview.src = '';
+    if (el.previewContainer) el.previewContainer.style.display = 'none';
+    if (el.imagePreview) el.imagePreview.src = '';
+    if (el.videoPreview) el.videoPreview.src = '';
   }
 
   async function handleSaveMedia() {
@@ -438,7 +470,6 @@
       return;
     }
 
-    // New item requires a file
     if (!state.currentEditId && !state.selectedFile) {
       showToast('Please select a file to upload', 'error');
       return;
@@ -457,8 +488,8 @@
 
       // 1. Upload file if selected
       if (state.selectedFile) {
-        el.uploadProgressBar.style.display = 'block';
-        el.uploadProgressFill.style.width = '25%';
+        if (el.uploadProgressBar) el.uploadProgressBar.style.display = 'block';
+        if (el.uploadProgressFill) el.uploadProgressFill.style.width = '25%';
 
         const ext = state.selectedFile.name.split('.').pop() || (mediaType === 'video' ? 'mp4' : 'jpg');
         const uniqueFileName = `${mediaType}s/${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${ext}`;
@@ -472,9 +503,8 @@
 
         if (uploadError) throw uploadError;
 
-        el.uploadProgressFill.style.width = '70%';
+        if (el.uploadProgressFill) el.uploadProgressFill.style.width = '70%';
 
-        // Get public URL
         const { data: { publicUrl } } = client.storage
           .from('gallery')
           .getPublicUrl(uniqueFileName);
@@ -482,7 +512,7 @@
         mediaUrl = publicUrl;
       }
 
-      el.uploadProgressFill.style.width = '90%';
+      if (el.uploadProgressFill) el.uploadProgressFill.style.width = '90%';
 
       // 2. Insert or update in gallery_items table
       if (state.currentEditId) {
@@ -520,7 +550,7 @@
         showToast(`${mediaType === 'video' ? 'Video' : 'Photo'} uploaded successfully`, 'success');
       }
 
-      el.uploadProgressFill.style.width = '100%';
+      if (el.uploadProgressFill) el.uploadProgressFill.style.width = '100%';
       closeModal();
       await loadGalleryItems();
     } catch (err) {
@@ -542,7 +572,6 @@
     if (!client) return;
 
     try {
-      // 1. Delete database record
       const { error: dbError } = await client
         .from('gallery_items')
         .delete()
@@ -550,7 +579,6 @@
 
       if (dbError) throw dbError;
 
-      // 2. Attempt deleting associated storage asset if URL matches bucket
       if (item.media_url && item.media_url.includes('/gallery/')) {
         try {
           const parts = item.media_url.split('/gallery/');
@@ -573,21 +601,21 @@
 
   function setModalSaving(isSaving) {
     state.isUploading = isSaving;
-    el.btnSaveMedia.disabled = isSaving;
-    el.btnSaveText.textContent = isSaving ? 'Uploading...' : (state.currentEditId ? 'Save Changes' : 'Upload');
+    if (el.btnSaveMedia) el.btnSaveMedia.disabled = isSaving;
+    if (el.btnSaveText) el.btnSaveText.textContent = isSaving ? 'Uploading...' : (state.currentEditId ? 'Save Changes' : 'Upload');
   }
 
   // =========================================================================
   // 5. SETTINGS / CONFIG MODAL
   // =========================================================================
   function openSettingsModal() {
-    el.configSupabaseUrl.value = window.BlueToursSupabase.getUrl() || 'https://lhcdnllntqcnzlrusmsm.supabase.co';
-    el.configSupabaseAnonKey.value = window.BlueToursSupabase.getPublishableKey() || '';
-    el.settingsModal.classList.add('active');
+    if (el.configSupabaseUrl) el.configSupabaseUrl.value = window.BlueToursSupabase.getUrl() || 'https://lhcdnllntqcnzlrusmsm.supabase.co';
+    if (el.configSupabaseAnonKey) el.configSupabaseAnonKey.value = window.BlueToursSupabase.getPublishableKey() || '';
+    if (el.settingsModal) el.settingsModal.classList.add('active');
   }
 
   function closeSettingsModal() {
-    el.settingsModal.classList.remove('active');
+    if (el.settingsModal) el.settingsModal.classList.remove('active');
   }
 
   function handleSaveSettings() {
@@ -603,31 +631,57 @@
     closeSettingsModal();
     checkConfigStatus();
     showToast('Credentials saved in browser', 'success');
-    
-    // Re-initialize session
-    init();
+
+    // Attempt re-check session or prepare client
+    const client = window.BlueToursSupabase.getClient();
+    if (client) {
+      client.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          state.user = session.user;
+          showDashboardView();
+          loadGalleryItems();
+        } else {
+          showLoginView();
+        }
+      }).catch(() => {
+        showLoginView();
+      });
+    }
   }
 
   // =========================================================================
   // 6. EVENT LISTENERS SETUP
   // =========================================================================
   function setupEventListeners() {
-    el.adminLoginForm.addEventListener('submit', handleLogin);
-    el.btnAdminLogout.addEventListener('click', handleLogout);
+    if (el.adminLoginForm) el.adminLoginForm.addEventListener('submit', handleLogin);
+    if (el.btnAdminLogout) el.btnAdminLogout.addEventListener('click', handleLogout);
+
+    // Toggle inline key input field on login page
+    if (el.btnToggleKeyInline) {
+      el.btnToggleKeyInline.addEventListener('click', () => {
+        if (el.loginKeyGroup) {
+          const isHidden = el.loginKeyGroup.style.display === 'none';
+          el.loginKeyGroup.style.display = isHidden ? 'flex' : 'none';
+          if (isHidden && el.loginPublishableKey) el.loginPublishableKey.focus();
+        }
+      });
+    }
 
     // Password Toggle
-    el.btnTogglePassword.addEventListener('click', () => {
-      const isPassword = el.loginPassword.type === 'password';
-      el.loginPassword.type = isPassword ? 'text' : 'password';
-      el.eyeIcon.innerHTML = isPassword ?
-        '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>' :
-        '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
-    });
+    if (el.btnTogglePassword) {
+      el.btnTogglePassword.addEventListener('click', () => {
+        const isPassword = el.loginPassword.type === 'password';
+        el.loginPassword.type = isPassword ? 'text' : 'password';
+        el.eyeIcon.innerHTML = isPassword ?
+          '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>' :
+          '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+      });
+    }
 
     // Quick Action Buttons
-    el.btnQuickAddPhoto.addEventListener('click', () => openAddModal('image'));
-    el.btnQuickAddVideo.addEventListener('click', () => openAddModal('video'));
-    el.btnRefreshGrid.addEventListener('click', loadGalleryItems);
+    if (el.btnQuickAddPhoto) el.btnQuickAddPhoto.addEventListener('click', () => openAddModal('image'));
+    if (el.btnQuickAddVideo) el.btnQuickAddVideo.addEventListener('click', () => openAddModal('video'));
+    if (el.btnRefreshGrid) el.btnRefreshGrid.addEventListener('click', loadGalleryItems);
 
     // Filter Tabs
     el.tabButtons.forEach(btn => {
@@ -650,53 +704,66 @@
     });
 
     // Live Search
-    el.adminSearchInput.addEventListener('input', (e) => {
-      state.searchQuery = e.target.value.trim();
-      renderGalleryGrid();
-    });
+    if (el.adminSearchInput) {
+      el.adminSearchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value.trim();
+        renderGalleryGrid();
+      });
+    }
 
     // Dropzone & File Picker
-    el.fileDropzone.addEventListener('click', () => el.formFileInput.click());
-    el.formFileInput.addEventListener('change', (e) => {
-      if (e.target.files && e.target.files[0]) {
-        handleFileSelection(e.target.files[0]);
-      }
-    });
+    if (el.fileDropzone) el.fileDropzone.addEventListener('click', () => el.formFileInput.click());
+    if (el.formFileInput) {
+      el.formFileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          handleFileSelection(e.target.files[0]);
+        }
+      });
+    }
 
-    el.btnRemovePreview.addEventListener('click', (e) => {
-      e.stopPropagation();
-      state.selectedFile = null;
-      el.formFileInput.value = '';
-      hidePreview();
-    });
+    if (el.btnRemovePreview) {
+      el.btnRemovePreview.addEventListener('click', (e) => {
+        e.stopPropagation();
+        state.selectedFile = null;
+        if (el.formFileInput) el.formFileInput.value = '';
+        hidePreview();
+      });
+    }
 
     // Modal Action Buttons
-    el.btnCloseModal.addEventListener('click', closeModal);
-    el.btnCancelModal.addEventListener('click', closeModal);
-    el.btnSaveMedia.addEventListener('click', handleSaveMedia);
+    if (el.btnCloseModal) el.btnCloseModal.addEventListener('click', closeModal);
+    if (el.btnCancelModal) el.btnCancelModal.addEventListener('click', closeModal);
+    if (el.btnSaveMedia) el.btnSaveMedia.addEventListener('click', handleSaveMedia);
 
     // Settings Modal
-    el.btnOpenSettings.addEventListener('click', openSettingsModal);
-    el.btnOpenSetupGuide?.addEventListener('click', (e) => {
-      e.preventDefault();
-      openSettingsModal();
-    });
-    el.btnCloseSettings.addEventListener('click', closeSettingsModal);
-    el.btnSaveSettings.addEventListener('click', handleSaveSettings);
+    if (el.btnOpenSettings) el.btnOpenSettings.addEventListener('click', openSettingsModal);
+    if (el.btnOpenSetupGuide) {
+      el.btnOpenSetupGuide.addEventListener('click', (e) => {
+        e.preventDefault();
+        openSettingsModal();
+      });
+    }
+    if (el.btnCloseSettings) el.btnCloseSettings.addEventListener('click', closeSettingsModal);
+    if (el.btnSaveSettings) el.btnSaveSettings.addEventListener('click', handleSaveSettings);
 
     // Close on backdrop tap
-    el.mediaModal.addEventListener('click', (e) => {
-      if (e.target === el.mediaModal && !state.isUploading) closeModal();
-    });
-    el.settingsModal.addEventListener('click', (e) => {
-      if (e.target === el.settingsModal) closeSettingsModal();
-    });
+    if (el.mediaModal) {
+      el.mediaModal.addEventListener('click', (e) => {
+        if (e.target === el.mediaModal && !state.isUploading) closeModal();
+      });
+    }
+    if (el.settingsModal) {
+      el.settingsModal.addEventListener('click', (e) => {
+        if (e.target === el.settingsModal) closeSettingsModal();
+      });
+    }
   }
 
   // =========================================================================
   // 7. UTILITIES
   // =========================================================================
   function showToast(msg, type = 'success') {
+    if (!el.adminToast) return;
     el.toastMessage.textContent = msg;
     el.adminToast.className = `admin-toast admin-toast-${type} show`;
     setTimeout(() => {
@@ -721,5 +788,9 @@
   };
 
   // Run on DOM ready
-  document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

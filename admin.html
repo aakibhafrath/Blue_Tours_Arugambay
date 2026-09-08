@@ -31,7 +31,7 @@
 
       <!-- Config Notice (if publishable key not yet set in browser) -->
       <div id="configNoticeAlert" class="admin-alert admin-alert-info">
-        <span>⚙️ Supabase publishable key needed. <a href="#settingsModal" id="btnOpenSetupGuide" style="color:var(--turquoise,#00B4D8);font-weight:700;text-decoration:underline;">Enter Key</a></span>
+        <span>⚙️ Supabase key needed. <a href="#settingsModal" id="btnOpenSetupGuide" style="color:var(--turquoise,#00B4D8);font-weight:700;text-decoration:underline;">Enter Key</a></span>
       </div>
 
       <div id="loginAlert" class="admin-alert admin-alert-error">
@@ -39,6 +39,17 @@
       </div>
 
       <form id="adminLoginForm">
+        <!-- Optional inline key field so user can enter key right on login screen if needed -->
+        <div class="admin-form-group" id="loginKeyGroup" style="display:none;">
+          <label class="admin-form-label" for="loginPublishableKey">
+            <span>Supabase Publishable Key</span>
+            <span style="font-size:0.75rem; color:var(--turquoise,#00B4D8);">anon / public</span>
+          </label>
+          <div class="admin-input-wrapper">
+            <input type="password" id="loginPublishableKey" class="admin-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+          </div>
+        </div>
+
         <div class="admin-form-group">
           <label class="admin-form-label" for="loginEmail">Email Address</label>
           <div class="admin-input-wrapper">
@@ -63,8 +74,9 @@
           <span id="btnLoginSpinner" style="display:none;">Signing in...</span>
         </button>
 
-        <div style="margin-top: 1.5rem; text-align: center;">
-          <a href="index.html" class="btn-admin-ghost" style="display: inline-flex;">← Return to Public Website</a>
+        <div style="margin-top: 1.5rem; text-align: center; display: flex; justify-content: center; gap: 1rem;">
+          <a href="index.html" class="btn-admin-ghost" style="display: inline-flex;">← Public Website</a>
+          <button type="button" id="btnToggleKeyInline" class="btn-admin-ghost" style="display: inline-flex;">⚙️ Key Settings</button>
         </div>
       </form>
     </div>

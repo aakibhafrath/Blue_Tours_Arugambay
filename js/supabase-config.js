@@ -5,43 +5,56 @@
 (function () {
   // Configured Supabase Project URL provided by user
   const DEFAULT_SUPABASE_URL = "https://lhcdnllntqcnzlrusmsm.supabase.co";
-  
-  // Public Publishable / Anon Key placeholder (can be overridden via window.SUPABASE_ENV or localStorage)
   const DEFAULT_SUPABASE_KEY = "";
-
-  // Priority resolution: window.SUPABASE_ENV > localStorage > defaults
-  const supabaseUrl = 
-    (window.SUPABASE_ENV && (window.SUPABASE_ENV.SUPABASE_URL || window.SUPABASE_ENV.NEXT_PUBLIC_SUPABASE_URL)) ||
-    localStorage.getItem("BT_SUPABASE_URL") ||
-    DEFAULT_SUPABASE_URL;
-
-  const supabasePublishableKey = 
-    (window.SUPABASE_ENV && (window.SUPABASE_ENV.SUPABASE_PUBLISHABLE_KEY || window.SUPABASE_ENV.SUPABASE_ANON_KEY || window.SUPABASE_ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY)) ||
-    localStorage.getItem("BT_SUPABASE_PUBLISHABLE_KEY") ||
-    localStorage.getItem("BT_SUPABASE_ANON_KEY") ||
-    DEFAULT_SUPABASE_KEY;
 
   let supabaseClient = null;
 
+  function getStoredUrl() {
+    return (
+      (window.SUPABASE_ENV && (window.SUPABASE_ENV.SUPABASE_URL || window.SUPABASE_ENV.NEXT_PUBLIC_SUPABASE_URL)) ||
+      localStorage.getItem("BT_SUPABASE_URL") ||
+      DEFAULT_SUPABASE_URL
+    ).trim();
+  }
+
+  function getStoredKey() {
+    return (
+      (window.SUPABASE_ENV && (window.SUPABASE_ENV.SUPABASE_PUBLISHABLE_KEY || window.SUPABASE_ENV.SUPABASE_ANON_KEY || window.SUPABASE_ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY)) ||
+      localStorage.getItem("BT_SUPABASE_PUBLISHABLE_KEY") ||
+      localStorage.getItem("BT_SUPABASE_ANON_KEY") ||
+      DEFAULT_SUPABASE_KEY
+    ).trim();
+  }
+
   function isConfigured() {
+    const url = getStoredUrl();
+    const key = getStoredKey();
     return Boolean(
-      supabaseUrl && 
-      supabaseUrl.startsWith("https://") &&
-      supabasePublishableKey &&
-      supabasePublishableKey.length > 20
+      url && 
+      url.startsWith("https://") &&
+      key &&
+      key.length > 20
     );
   }
 
   function getClient() {
-    if (!supabaseClient && isConfigured()) {
+    if (!isConfigured()) {
+      return null;
+    }
+
+    if (!supabaseClient) {
       if (typeof window.supabase !== "undefined" && window.supabase.createClient) {
-        supabaseClient = window.supabase.createClient(supabaseUrl, supabasePublishableKey, {
+        const url = getStoredUrl();
+        const key = getStoredKey();
+        supabaseClient = window.supabase.createClient(url, key, {
           auth: {
             persistSession: true,
             autoRefreshToken: true,
             detectSessionInUrl: true
           }
         });
+      } else {
+        console.error("Supabase JS SDK not loaded yet.");
       }
     }
     return supabaseClient;
@@ -49,8 +62,8 @@
 
   // Export to global scope
   window.BlueToursSupabase = {
-    getUrl: () => supabaseUrl,
-    getPublishableKey: () => supabasePublishableKey,
+    getUrl: getStoredUrl,
+    getPublishableKey: getStoredKey,
     isConfigured: isConfigured,
     getClient: getClient,
     setCredentials: function (url, key) {
@@ -58,7 +71,7 @@
         localStorage.setItem("BT_SUPABASE_URL", url.trim());
         localStorage.setItem("BT_SUPABASE_PUBLISHABLE_KEY", key.trim());
         localStorage.setItem("BT_SUPABASE_ANON_KEY", key.trim());
-        supabaseClient = null;
+        supabaseClient = null; // reset cached instance
       }
     },
     clearCredentials: function () {
