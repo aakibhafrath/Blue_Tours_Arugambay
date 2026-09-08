@@ -1,9 +1,10 @@
 /* ==========================================================================
-   BLUE TOURS ARUGAMBAY - GALLERY FILTER & LIGHTBOX MODULE
+   BLUE TOURS ARUGAMBAY - GALLERY FILTER & LIGHTBOX MODULE (DYNAMIC CMS ENABLED)
    ========================================================================== */
 
 class Gallery {
   constructor() {
+    this.container = document.querySelector('.gallery-masonry');
     this.filterButtons = document.querySelectorAll('.btn-filter');
     this.galleryItems = document.querySelectorAll('.gallery-item');
     this.lightbox = document.getElementById('lightbox');
@@ -14,51 +15,148 @@ class Gallery {
       this.closeBtn = this.lightbox.querySelector('.btn-lightbox-close');
       this.prevBtn = this.lightbox.querySelector('.btn-lightbox-prev');
       this.nextBtn = this.lightbox.querySelector('.btn-lightbox-next');
+      this.lightboxBox = this.lightbox.querySelector('.lightbox-content-box');
+      
+      // Ensure video element exists in lightbox
+      let lightboxVideo = this.lightbox.querySelector('.lightbox-video');
+      if (!lightboxVideo) {
+        lightboxVideo = document.createElement('video');
+        lightboxVideo.className = 'lightbox-video';
+        lightboxVideo.controls = true;
+        lightboxVideo.style.maxWidth = '100%';
+        lightboxVideo.style.maxHeight = '75dvh';
+        lightboxVideo.style.borderRadius = 'var(--radius-sm)';
+        lightboxVideo.style.display = 'none';
+        if (this.lightboxImg && this.lightboxImg.parentNode) {
+          this.lightboxImg.parentNode.insertBefore(lightboxVideo, this.lightboxCaption);
+        }
+      }
+      this.lightboxVideo = lightboxVideo;
     }
 
     this.visibleItems = [];
     this.currentIndex = 0;
+    this.currentCategory = 'all';
 
     // Mobile Swipe coordinates
     this.touchStartX = 0;
     this.touchEndX = 0;
   }
 
-  init() {
-    this.updateVisibleItems();
+  async init() {
+    // 1. Initial binding for existing static items
+    this.refreshGalleryItems();
     this.addEventListeners();
+
+    // 2. Load dynamic items from Supabase CMS in the background
+    await this.loadSupabaseGallery();
+  }
+
+  async loadSupabaseGallery() {
+    if (!window.BlueToursSupabase || !window.BlueToursSupabase.isConfigured()) {
+      return; // Fallback smoothly to static images
+    }
+
+    const client = window.BlueToursSupabase.getClient();
+    if (!client || !this.container) return;
+
+    try {
+      const { data, error } = await client
+        .from('gallery_items')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.warn('Supabase gallery fetch notice:', error.message);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        this.prependDynamicItems(data);
+      }
+    } catch (err) {
+      console.warn('Supabase dynamic gallery offline, using fallback items:', err);
+    }
+  }
+
+  prependDynamicItems(items) {
+    if (!this.container) return;
+
+    // Build document fragment with dynamic items
+    const fragment = document.createDocumentFragment();
+
+    items.forEach(item => {
+      const isVideo = item.media_type === 'video';
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      
+      // Map category to filter attributes
+      let cat = (item.category || 'safari').toLowerCase();
+      if (cat === 'surfing') cat = 'surf';
+      if (cat === 'camping') cat = 'camp';
+      div.setAttribute('data-category', cat);
+      div.setAttribute('data-dynamic', 'true');
+
+      const title = this.escapeHtml(item.title);
+      const categoryLabel = this.escapeHtml(item.category.toUpperCase());
+
+      if (isVideo) {
+        div.innerHTML = `
+          <video width="100%" height="auto" preload="metadata" muted playsinline loop>
+            <source src="${item.media_url}" type="video/mp4">
+          </video>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">${categoryLabel} (VIDEO)</span>
+            <h3 class="gallery-item-title">${title}</h3>
+          </div>
+        `;
+      } else {
+        div.innerHTML = `
+          <img src="${item.media_url}" alt="${title}" loading="lazy">
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-category">${categoryLabel}</span>
+            <h3 class="gallery-item-title">${title}</h3>
+          </div>
+        `;
+      }
+
+      fragment.appendChild(div);
+    });
+
+    // Insert at beginning of masonry layout
+    this.container.insertBefore(fragment, this.container.firstChild);
+
+    // Refresh collection & re-bind triggers
+    this.refreshGalleryItems();
+    this.bindItemClickEvents();
+    this.filterGallery(this.currentCategory);
+  }
+
+  refreshGalleryItems() {
+    this.galleryItems = document.querySelectorAll('.gallery-item');
+    this.updateVisibleItems();
   }
 
   addEventListeners() {
     // 1. Filter buttons Click handler
     this.filterButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        // Toggle Active
+      btn.addEventListener('click', () => {
         this.filterButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         const category = btn.getAttribute('data-filter');
+        this.currentCategory = category;
         this.filterGallery(category);
       });
     });
 
     // 2. Lightbox Open triggers
-    this.galleryItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const img = item.querySelector('img');
-        const title = item.querySelector('.gallery-item-title')?.textContent || '';
-        
-        // Find index of clicked item in the visible items list
-        this.currentIndex = this.visibleItems.indexOf(item);
-        this.openLightbox(img.src, title);
-      });
-    });
+    this.bindItemClickEvents();
 
     // 3. Lightbox Close & Nav triggers
     if (this.lightbox) {
       this.closeBtn.addEventListener('click', () => this.closeLightbox());
       
-      // Close by clicking background overlay
       this.lightbox.addEventListener('click', (e) => {
         if (e.target === this.lightbox) this.closeLightbox();
       });
@@ -87,11 +185,42 @@ class Gallery {
     }
   }
 
+  bindItemClickEvents() {
+    this.galleryItems.forEach(item => {
+      if (item._clickBound) return;
+      item._clickBound = true;
+
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        const video = item.querySelector('video');
+        const title = item.querySelector('.gallery-item-title')?.textContent || '';
+        
+        this.currentIndex = this.visibleItems.indexOf(item);
+
+        if (video) {
+          const src = video.querySelector('source')?.src || video.src;
+          this.openLightbox(src, title, 'video');
+        } else if (img) {
+          this.openLightbox(img.src, title, 'image');
+        }
+      });
+    });
+  }
+
   filterGallery(category) {
     this.galleryItems.forEach(item => {
-      const itemCat = item.getAttribute('data-category');
+      const itemCat = (item.getAttribute('data-category') || '').toLowerCase();
       
-      if (category === 'all' || itemCat === category) {
+      const match = (
+        category === 'all' || 
+        itemCat === category ||
+        (category === 'safari' && (itemCat === 'safari' || itemCat === 'wildlife')) ||
+        (category === 'surf' && (itemCat === 'surf' || itemCat === 'surfing')) ||
+        (category === 'camp' && (itemCat === 'camp' || itemCat === 'camping')) ||
+        (category === 'beach' && itemCat === 'beach')
+      );
+
+      if (match) {
         item.style.display = 'block';
         setTimeout(() => {
           item.style.opacity = '1';
@@ -102,11 +231,10 @@ class Gallery {
         item.style.transform = 'scale(0.95)';
         setTimeout(() => {
           item.style.display = 'none';
-        }, 300); // match transition timing
+        }, 300);
       }
     });
 
-    // Update list of visible elements for Lightbox slider loop
     setTimeout(() => this.updateVisibleItems(), 350);
   }
 
@@ -114,18 +242,43 @@ class Gallery {
     this.visibleItems = Array.from(this.galleryItems).filter(item => item.style.display !== 'none');
   }
 
-  openLightbox(src, caption) {
+  openLightbox(src, caption, type = 'image') {
     if (!this.lightbox) return;
-    this.lightboxImg.src = src;
-    this.lightboxCaption.textContent = caption;
+
+    if (type === 'video') {
+      if (this.lightboxImg) this.lightboxImg.style.display = 'none';
+      if (this.lightboxVideo) {
+        this.lightboxVideo.style.display = 'block';
+        this.lightboxVideo.src = src;
+        this.lightboxVideo.play().catch(() => {});
+      }
+    } else {
+      if (this.lightboxVideo) {
+        this.lightboxVideo.pause();
+        this.lightboxVideo.style.display = 'none';
+      }
+      if (this.lightboxImg) {
+        this.lightboxImg.style.display = 'block';
+        this.lightboxImg.src = src;
+      }
+    }
+
+    if (this.lightboxCaption) {
+      this.lightboxCaption.textContent = caption;
+    }
+
     this.lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden'; // stop page scroll
+    document.body.style.overflow = 'hidden';
   }
 
   closeLightbox() {
     if (!this.lightbox) return;
+    if (this.lightboxVideo) {
+      this.lightboxVideo.pause();
+      this.lightboxVideo.src = '';
+    }
     this.lightbox.classList.remove('active');
-    document.body.style.overflow = ''; // restore scroll
+    document.body.style.overflow = '';
   }
 
   navigate(direction) {
@@ -133,7 +286,6 @@ class Gallery {
     
     this.currentIndex += direction;
     
-    // Boundary checks
     if (this.currentIndex < 0) {
       this.currentIndex = this.visibleItems.length - 1;
     } else if (this.currentIndex >= this.visibleItems.length) {
@@ -142,26 +294,38 @@ class Gallery {
 
     const targetItem = this.visibleItems[this.currentIndex];
     const img = targetItem.querySelector('img');
+    const video = targetItem.querySelector('video');
     const title = targetItem.querySelector('.gallery-item-title')?.textContent || '';
 
-    // Smooth transition
-    this.lightboxImg.style.opacity = '0.3';
-    setTimeout(() => {
-      this.lightboxImg.src = img.src;
-      this.lightboxCaption.textContent = title;
-      this.lightboxImg.style.opacity = '1';
-    }, 150);
+    if (video) {
+      const src = video.querySelector('source')?.src || video.src;
+      this.openLightbox(src, title, 'video');
+    } else if (img) {
+      if (this.lightboxImg) this.lightboxImg.style.opacity = '0.3';
+      setTimeout(() => {
+        this.openLightbox(img.src, title, 'image');
+        if (this.lightboxImg) this.lightboxImg.style.opacity = '1';
+      }, 150);
+    }
   }
 
   handleSwipeGesture() {
-    const swipeThreshold = 50; // px
+    const swipeThreshold = 50;
     if (this.touchEndX < this.touchStartX - swipeThreshold) {
-      // Swiped Left -> Next
       this.navigate(1);
     } else if (this.touchEndX > this.touchStartX + swipeThreshold) {
-      // Swiped Right -> Previous
       this.navigate(-1);
     }
+  }
+
+  escapeHtml(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 }
 

@@ -562,22 +562,88 @@
       opacity: 1;
     }
     
+    /* ============================================
+       RESPONSIVE BREAKPOINTS
+       ============================================ */
+
+    /* Tablet & small desktop */
     @media (max-width: 992px) {
       .mockup-grid {
         grid-template-columns: 1fr;
       }
       header {
-        padding: 0 2rem;
+        padding: 0 clamp(1rem, 4vw, 2rem);
+      }
+      .container {
+        padding: 2.5rem 1.5rem;
+      }
+      .playground-header {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .background-selector {
+        flex-wrap: wrap;
       }
     }
-    
+
+    /* Mobile landscape / large mobile */
     @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+      header {
+        height: 70px;
+        padding: 0 1.2rem;
+      }
+      .logo-container img {
+        height: 38px;
+        width: 38px;
+      }
+      .logo-container span {
+        font-size: 1.1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 140px;
+      }
+      .hero-guidelines {
+        margin-bottom: 3rem;
+      }
       .hero-guidelines h1 {
-        font-size: 2.5rem;
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+      }
+      .hero-guidelines p {
+        font-size: 1rem;
+      }
+      .section-title {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+      }
+      .guideline-section {
+        margin-bottom: 4rem;
+      }
+      .typo-showcase {
+        padding: 1.5rem;
+      }
+      .typo-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .typo-label {
+        width: 100%;
+      }
+      .typo-content {
+        width: 100%;
+      }
+      .font-sample-serif {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+      }
+      .font-sample-sans {
+        font-size: clamp(1.2rem, 4.5vw, 1.8rem);
       }
       .interactive-card {
-        width: 340px;
-        height: 194px;
+        width: min(340px, 90vw);
+        height: auto;
+        aspect-ratio: 450 / 256;
       }
       .flip-card-front, .flip-card-back {
         padding: 1rem;
@@ -599,6 +665,116 @@
       .card-grid-back {
         grid-template-columns: 70px 1fr;
         gap: 10px;
+      }
+      .sig-controls {
+        flex-wrap: wrap;
+      }
+      .btn-sig {
+        flex: 1 1 auto;
+        justify-content: center;
+      }
+      .logo-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      }
+    }
+
+    /* Mobile portrait — 576px and below */
+    @media (max-width: 576px) {
+      .container {
+        padding: 2rem 1rem;
+      }
+      header {
+        padding: 0 1rem;
+      }
+      .logo-container span {
+        max-width: 110px;
+        font-size: 1rem;
+      }
+      .nav-links {
+        gap: 10px;
+      }
+      .btn-back {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.82rem;
+      }
+      .hero-guidelines h1 {
+        font-size: clamp(1.6rem, 8vw, 2.2rem);
+      }
+      .color-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+        gap: 16px;
+      }
+      .logo-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .logo-card {
+        padding: 1.2rem 1rem 1rem;
+        min-height: 220px;
+      }
+      .logo-preview-box {
+        height: 110px;
+      }
+      .business-card-wrapper {
+        padding: 1rem 0;
+      }
+      .interactive-card {
+        width: min(300px, 92vw);
+      }
+      .signature-container {
+        padding: 1.5rem 1rem;
+      }
+    }
+
+    /* Small mobile — 400px and below */
+    @media (max-width: 400px) {
+      .logo-container span {
+        display: none; /* Show only icon on very small screens */
+      }
+      .hero-guidelines h1 {
+        font-size: clamp(1.4rem, 9vw, 1.8rem);
+      }
+      .color-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .logo-grid {
+        grid-template-columns: 1fr;
+      }
+      .bg-select-btn {
+        font-size: 0.78rem;
+        padding: 6px 10px;
+      }
+      .interactive-card {
+        width: min(280px, 96vw);
+      }
+      .card-instructions {
+        padding: 0.5rem;
+      }
+      .sig-controls {
+        flex-direction: column;
+      }
+      .btn-sig {
+        width: 100%;
+      }
+    }
+
+    /* Ultra-narrow — 320px (JioPhone, Nokia Lumia) */
+    @media (max-width: 320px) {
+      .container {
+        padding: 1.5rem 0.75rem;
+      }
+      .hero-guidelines h1 {
+        font-size: 1.35rem;
+      }
+      .section-title {
+        font-size: 1.2rem;
+      }
+      .color-grid {
+        grid-template-columns: 1fr;
+      }
+      .interactive-card {
+        width: 96vw;
       }
     }
   </style>
