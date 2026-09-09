@@ -199,7 +199,7 @@
 .hero-logo-box img {
   filter: drop-shadow(0 0 24px rgba(0,180,216,0.6));
 }
-  </style>
+  </style>-
 </head>
 <body style="overflow: hidden;"> <!-- Lock overflow for Preloader -->
 
@@ -214,8 +214,6 @@
     </div>
   </div>
 
-  <!-- Scroll Progress Indicator -->
-  <div id="scrollProgress" class="scroll-progress"></div>
 
   <!-- --- 2. Floating WhatsApp Connect Button --- -->
   <a href="https://wa.me/94776130013" class="whatsapp-float animate-pulse-glow" target="_blank" aria-label="Chat on WhatsApp">
@@ -645,306 +643,784 @@
       </div>
     </div>
   </section>
+```html
+<!-- ==================== 9. GALLERY SECTION ==================== -->
+<section class="section" id="gallery" style="background-color: var(--bg-secondary);">
 
-  <!-- --- 9. Gallery Section --- -->
-  <section class="section" id="gallery" style="background-color: var(--bg-secondary);">
     <div class="container">
-      <div class="section-header reveal">
-        <h2 data-i18n="gallery_title">Visual Gallery</h2>
-        <p data-i18n="gallery_subtitle">Glimpses of wild safaris, surfing barrels, and golden coastlines.</p>
-        <div class="divider-line"></div>
-      </div>
 
-      <!-- Filter Buttons -->
-      <div class="gallery-filter-buttons reveal">
-        <button class="btn-filter active" data-filter="all">All Photos</button>
-        <button class="btn-filter" data-filter="safari">Safari &amp; Wildlife</button>
-        <button class="btn-filter" data-filter="surf">Surfing</button>
-        <button class="btn-filter" data-filter="camp">Camping</button>
-        <button class="btn-filter" data-filter="lagoon">Lagoon &amp; Nature</button>
-        <button class="btn-filter" data-filter="beach">Beach</button>
-        <button class="btn-filter" data-filter="taxi">Taxi &amp; Drone</button>
-      </div>
+        <!-- ==================== GALLERY HEADER ==================== -->
+        <div class="section-header reveal">
 
-      <!-- Masonry Layout Grid -->
-      <div class="gallery-masonry reveal">
-        <!-- Item 1: Safari Elephant -->
-        <div class="gallery-item" data-category="safari">
-          <img src="images/corcodaile2.jpeg" alt="Elephant Elephant Herd - Kumana National Park" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Crocodile</span>
-            <h3 class="gallery-item-title">Crocodile resting on sand in Kumana</h3>
-          </div>
-        </div>
+            <h2 data-i18n="gallery_title">
+                Visual Gallery
+            </h2>
 
-          <div class="gallery-item" data-category="safari">
-          <img src="images/Bear.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Sloth bear</span>
-            <h3 class="gallery-item-title">Sloth bear on a forest path in Kumana</h3>
-          </div>
-        </div>
+            <p data-i18n="gallery_subtitle">
+                Glimpses of wild safaris, surfing barrels, and golden coastlines.
+            </p>
 
-           <div class="gallery-item" data-category="safari">
-          <img src="images\pho4.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">>Elephant</span>
-            <h3 class="gallery-item-title">Elephant in Arugambay</h3>
-          </div>
-        </div>
+            <div class="divider-line"></div>
 
-          <div class="gallery-item" data-category="safari">
-          <img src="images\pho5.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Friends</span>
-            <h3 class="gallery-item-title">Friends with Elephant in Arugambay</h3>
-          </div>
-        </div>
-
-          <div class="gallery-item" data-category="safari">
-          <img src="images\pho6.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Elephant</span>
-            <h3 class="gallery-item-title">Elephant in Arugambay</h3>
-          </div>
-        </div>
-
-          <div class="gallery-item" data-category="safari">
-          <img src="images\pho7.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Leopard</span>
-            <h3 class="gallery-item-title">Leopard in Kumana</h3>
-          </div>
-        </div>
-
-          <div class="gallery-item" data-category="safari">
-          <img src="images\pho9.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Leopard</span>
-            <h3 class="gallery-item-title">Leopard in Kumana</h3>
-          </div>
-        </div>
-
-          <div class="gallery-item" data-category="safari">
-          <img src="images\pho10.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Leopard</span>
-            <h3 class="gallery-item-title">Leopard in Kumana</h3>
-          </div>
-        </div>
-
-          <div class="gallery-item" data-category="safari">
-          <img src="images\pho8.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Elephant</span>
-            <h3 class="gallery-item-title">Elephant in Arugambay</h3>
-          </div>
-        </div>
- 
-
-
-
-
-        <!-- Item 2: Surfing Arugambay -->
-        <div class="gallery-item" data-category="surf">
-          <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&q=80" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Surfing</span>
-            <h3 class="gallery-item-title">Riding Waves at Main Point</h3>
-          </div>
-        </div>
-        
-         <div class="gallery-item" data-category="safari">
-          <img src="images/corcodalie 3.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Corcodile</span>
-            <h3 class="gallery-item-title">A crocodile resting on sandy ground, with its scales and facial details clearly visible.</h3>
-          </div>
-        </div>
-
-         <div class="gallery-item" data-category="safari">
-          <img src="images/Elipent.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Elephant</span>
-            <h3 class="gallery-item-title">An elephant standing among dense green vegetation in the forest in Kumana</h3>
-          </div>
-        </div>
-
-         <div class="gallery-item" data-category="safari">
-          <img src="images/elipent2.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Elephant</span>
-            <h3 class="gallery-item-title">Elephant crossing the river in Kumana</h3>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="safari">
-          <img src="images/Corcodaile.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Crocodile</span>
-            <h3 class="gallery-item-title">A crocodile lying in the grass with its mouth wide open, showing its sharp teeth and powerful jaws.</h3>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="safari">
-          <img src="images/kumana.jpeg" alt="Surfer catching wave in Arugam Bay" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Kumana Entrens</span>
-            <h3 class="gallery-item-title">Kumana National Park</h3>
-          </div>
-        </div>
-
-        <!-- Item 3: Lagoon Boat -->
-        <div class="gallery-item" data-category="lagoon">
-          <img src="images/lageoon2.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Lagoon</span>
-            <h3 class="gallery-item-title">Urani Lagoon Boat Tour in Family</h3>
-          </div>
-        </div>
-
-               <div class="gallery-item" data-category="safari">
-          <img src="images/leo.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Leopard Yawning</span>
-            <h3 class="gallery-item-title">A leopard resting near a tree with its mouth wide open, appearing to yawn.</h3>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="safari">
-          <img src="images/leopat.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">. Leopard on a Tree</span>
-            <h3 class="gallery-item-title">A leopard moving or resting among the branches of a tree in Kumana</h3>
-          </div>
-        </div>
-
-        
-        <div class="gallery-item" data-category="safari">
-          <img src="images/Manky.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Langur Monkey</span>
-            <h3 class="gallery-item-title">A langur monkey sitting peacefully among green trees and branches.</h3>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="safari">
-          <img src="images/parrat.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Green Parakeet</span>
-            <h3 class="gallery-item-title">A bright green parakeet sitting on a tree branch against a clear blue sky.</h3>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="safari">
-          <img src="images\Pho1.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Friends</span>
-            <h3 class="gallery-item-title">Friends enjoying a memorable travel experience together in Kumana</h3>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-category="taxi">
-          <img src="images\safari jeep.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">. Safari / Tour Vehicle</span>
-            <h3 class="gallery-item-title">A close-up view of a vehicle used for travel or safari adventures.</h3>
-          </div>
         </div>
 
 
-        <div class="gallery-item" data-category="safari">
-          <img src="images/udumbu.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Large Monitor Lizard</span>
-            <h3 class="gallery-item-title">A large monitor lizard resting on the forest floor, showing its long tail and strong body in Kumana</h3>
-          </div>
+        <!-- ==================== GALLERY FILTER BUTTONS ==================== -->
+        <div class="gallery-filter-buttons reveal">
+
+            <button class="btn-filter active" data-filter="all">
+                All Photos
+            </button>
+
+            <button class="btn-filter" data-filter="safari">
+                Safari &amp; Wildlife
+            </button>
+
+            <button class="btn-filter" data-filter="surf">
+                Surfing
+            </button>
+
+            <button class="btn-filter" data-filter="camp">
+                Camping
+            </button>
+
+            <button class="btn-filter" data-filter="lagoon">
+                Lagoon &amp; Nature
+            </button>
+
+            <button class="btn-filter" data-filter="beach">
+                Beach
+            </button>
+
+            <button class="btn-filter" data-filter="taxi">
+                Taxi &amp; Drone
+            </button>
+
         </div>
 
-        <div class="gallery-item" data-category="safari">
-          <img src="images\couple.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Beautiful Couple</span>
-            <h3 class="gallery-item-title">A happy couple enjoying a memorable travel experience together in Kumana</h3>
-          </div>
-        </div>
 
-         <div class="gallery-item" data-category="safari">
-          <img src="images\yaana.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Elephant</span>
-            <h3 class="gallery-item-title">An elephant peacefully walking through the lush green forest in Kumana</h3>
-          </div>
-        </div>
+        <!-- ==================== GALLERY GRID ==================== -->
+        <div class="gallery-masonry reveal">
 
-        <div class="gallery-item" data-category="lagoon">
-          <img src="images/lagoon.jpeg" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Lagoon</span>
-            <h3 class="gallery-item-title">Urani Lagoon Boat Tour in happy Couple</h3>
-          </div>
-        </div>
 
-          <!-- Item 3: Lagoon Boat -->
-        <div class="gallery-item" data-category="safari">
-         <video width="100%" height="360" autoplay muted loop>
-        <source src="images/WhatsApp Video 2026-09-01 at 12.20.31 PM.mp4" type="video/mp4">
-          </video>
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Elephant</span>
-            <h3 class="gallery-item-title">Elephant Bath in kumana </h3>
-          </div>
-        </div>
+            <!-- 01 - Crocodile -->
+            <div class="gallery-item" data-category="safari">
 
-        <!-- Item 4: Beach Campfire -->
-        <div class="gallery-item" data-category="camp">
-          <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80" alt="Beach campfire camping under stars" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Camping</span>
-            <h3 class="gallery-item-title">Campfire Setup at Secluded in Kumana</h3>
-          </div>
-        </div>
+                <img
+                    src="images/corcodaile2.jpeg"
+                    alt="Crocodile resting in Kumana National Park"
+                    loading="lazy"
+                    decoding="async"
+                >
 
-        <!-- Item 5: Leopard Spotting -->
-        <div class="gallery-item" data-category="safari">
-          <img src="https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=600&q=80" alt="Wild leopard resting in Kumana" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Wildlife</span>
-            <h3 class="gallery-item-title">Wild Leopard Tracking</h3>
-          </div>
-        </div>
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Crocodile
+                    </span>
 
-        <!-- Item 7: Surfboards Beach -->
-         <div class="gallery-item" data-category="Surf">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4AWdaEompJjFE36MHtHP_LsQIDsVIEY0Q08caw7Puwg&s=10" alt="Mangrove Lagoon boat safari" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Surfing</span>
-            <h3 class="gallery-item-title">Surfing at ArugamBay</h3>
-          </div>
-        </div>
+                    <h3 class="gallery-item-title">
+                        Crocodile resting on sand in Kumana
+                    </h3>
+                </div>
 
-        <!-- Item 8: AC Taxi Highway -->
-        <div class="gallery-item" data-category="taxi">
-          <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&q=80" alt="AC van driving through Sri Lankan highway" loading="lazy">
-          <div class="gallery-item-overlay">
-            <span class="gallery-item-category">Taxi</span>
-            <h3 class="gallery-item-title">Island AC Transport Transfers</h3>
-          </div>
+            </div>
+
+
+            <!-- 02 - Sloth Bear -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/Bear.jpeg"
+                    alt="Sloth bear on a forest path in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Sloth Bear
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Sloth bear on a forest path in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 03 - Elephant -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/pho4.jpeg"
+                    alt="Elephant in Arugam Bay"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Elephant
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Elephant in Arugambay
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 04 - Friends with Elephant -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/pho5.jpeg"
+                    alt="Friends with elephant in Arugam Bay"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Friends
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Friends with Elephant in Arugambay
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 05 - Elephant -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/pho6.jpeg"
+                    alt="Elephant in Arugam Bay"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Elephant
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Elephant in Arugambay
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 06 - Leopard -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/pho7.jpeg"
+                    alt="Leopard in Kumana National Park"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Leopard
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Leopard in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 07 - Leopard -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/pho9.jpeg"
+                    alt="Leopard in Kumana National Park"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Leopard
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Leopard in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 08 - Leopard -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/pho10.jpeg"
+                    alt="Leopard in Kumana National Park"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Leopard
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Leopard in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 09 - Elephant -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/pho8.jpeg"
+                    alt="Elephant in Arugam Bay"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Elephant
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Elephant in Arugambay
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 10 - Friends -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/Pho1.jpeg"
+                    alt="Friends enjoying a trip in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Friends
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Friends enjoying a memorable travel experience
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 11 - Crocodile -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/corcodalie 3.jpeg"
+                    alt="Crocodile resting on sandy ground"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Crocodile
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Crocodile resting on sandy ground
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 12 - Elephant -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/Elipent.jpeg"
+                    alt="Elephant in the forest of Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Elephant
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Elephant in the green forest of Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 13 - Elephant -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/elipent2.jpeg"
+                    alt="Elephant crossing the river in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Elephant
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Elephant crossing the river in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 14 - Crocodile -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/Corcodaile.jpeg"
+                    alt="Crocodile lying in the grass"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Crocodile
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Crocodile lying in the grass
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 15 - Kumana -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/kumana.jpeg"
+                    alt="Kumana National Park"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Kumana
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Kumana National Park
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 16 - Leopard -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/leo.jpeg"
+                    alt="Leopard resting in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Leopard
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Leopard resting in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 17 - Leopard on Tree -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/leopat.jpeg"
+                    alt="Leopard on a tree in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Leopard
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Leopard on a tree in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 18 - Monkey -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/Manky.jpeg"
+                    alt="Langur monkey in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Langur Monkey
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Langur monkey sitting among green trees
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 19 - Parakeet -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/parrat.jpeg"
+                    alt="Green parakeet sitting on a tree branch"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Green Parakeet
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Green parakeet in the wild
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 20 - Monitor Lizard -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/udumbu.jpeg"
+                    alt="Large monitor lizard in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Monitor Lizard
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Large monitor lizard resting in Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 21 - Couple -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/couple.jpeg"
+                    alt="Couple enjoying a trip in Kumana"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Couple
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        A happy couple enjoying their trip
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 22 - Elephant -->
+            <div class="gallery-item" data-category="safari">
+
+                <img
+                    src="images/yaana.jpeg"
+                    alt="Elephant walking through the forest"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Elephant
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Elephant walking through the lush green forest
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 23 - Lagoon -->
+            <div class="gallery-item" data-category="lagoon">
+
+                <img
+                    src="images/lagoon.jpeg"
+                    alt="Urani Lagoon boat tour"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Lagoon
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Urani Lagoon Boat Tour
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 24 - Lagoon -->
+            <div class="gallery-item" data-category="lagoon">
+
+                <img
+                    src="images/lageoon2.jpeg"
+                    alt="Urani Lagoon boat tour with family"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Lagoon
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Urani Lagoon Boat Tour with Family
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 25 - Surfing -->
+            <div class="gallery-item" data-category="surf">
+
+                <img
+                    src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&q=80"
+                    alt="Surfer catching a wave in Arugam Bay"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Surfing
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Riding Waves at Main Point
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 26 - Camping -->
+            <div class="gallery-item" data-category="camp">
+
+                <img
+                    src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=80"
+                    alt="Beach camping under the stars"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Camping
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Campfire Setup at Secluded Kumana
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 27 - Taxi -->
+            <div class="gallery-item" data-category="taxi">
+
+                <img
+                    src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80"
+                    alt="AC vehicle driving through Sri Lankan highway"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-item-overlay">
+                    <span class="gallery-item-category">
+                        Taxi
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Island AC Transport Transfers
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- 28 - Elephant Video -->
+            <div class="gallery-item" data-category="safari">
+
+                <video
+                    width="100%"
+                    height="360"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                >
+                    <source
+                        src="images/WhatsApp Video 2026-09-01 at 12.20.31 PM.mp4"
+                        type="video/mp4"
+                    >
+
+                    Your browser does not support video playback.
+
+                </video>
+
+                <div class="gallery-item-overlay">
+
+                    <span class="gallery-item-category">
+                        Elephant
+                    </span>
+
+                    <h3 class="gallery-item-title">
+                        Elephant Bath in Kumana
+                    </h3>
+
+                </div>
+
+            </div>
+
+
         </div>
-      </div>
+        <!-- END GALLERY GRID -->
+
     </div>
-  </section>
+    <!-- END CONTAINER -->
 
-  <!-- Gallery Lightbox Modal Overlay -->
-  <div id="lightbox" class="lightbox">
+</section>
+<!-- END GALLERY SECTION -->
+
+
+<!-- ========================================================= -->
+<!--                    GALLERY LIGHTBOX                       -->
+<!-- ========================================================= -->
+
+<div id="lightbox" class="lightbox">
+
     <div class="lightbox-content-box">
-      <button class="btn-lightbox-close" aria-label="Close Lightbox">&times;</button>
-      <button class="btn-lightbox-nav btn-lightbox-prev" aria-label="Previous image">&#10094;</button>
-      <img src="" alt="Full preview" class="lightbox-img">
-      <button class="btn-lightbox-nav btn-lightbox-next" aria-label="Next image">&#10095;</button>
-      <div class="lightbox-caption"></div>
+
+        <!-- Close -->
+        <button
+            class="btn-lightbox-close"
+            aria-label="Close image preview"
+        >
+            &times;
+        </button>
+
+
+        <!-- Previous -->
+        <button
+            class="btn-lightbox-nav btn-lightbox-prev"
+            aria-label="Previous image"
+        >
+            &#10094;
+        </button>
+
+
+        <!-- Full Image -->
+        <img
+            src=""
+            alt="Full preview"
+            class="lightbox-img"
+        >
+
+
+        <!-- Next -->
+        <button
+            class="btn-lightbox-nav btn-lightbox-next"
+            aria-label="Next image"
+        >
+            &#10095;
+        </button>
+
+
+        <!-- Caption -->
+        <div class="lightbox-caption"></div>
+
     </div>
-  </div>
+
+</div>
+<!-- END GALLERY LIGHTBOX -->
+```
 
  <!-- Reviews Section -->
 <section class="review-section" id="testimonials">
